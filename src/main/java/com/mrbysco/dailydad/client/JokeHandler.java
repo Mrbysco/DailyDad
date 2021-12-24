@@ -76,8 +76,7 @@ public class JokeHandler {
 		if(joke == null) {
 			DailyDad.LOGGER.info("Getting internal dad joke instead");
 
-			//TODO: Grab internal dad jokes
-			MutableComponent internalJoke = TextComponent.EMPTY.copy();
+			MutableComponent internalJoke = DadAbase.getInternalDadJoke().copy();
 
 			joke = getFinalComponent(internalJoke, withName);
 		}

@@ -1,6 +1,7 @@
 package com.mrbysco.dailydad.jokes;
 
 import com.mrbysco.dailydad.DailyDad;
+import com.mrbysco.dailydad.JokeConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -11,8 +12,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.List;
+import java.util.Random;
 
 public class DadAbase {
+	private static final Random random = new Random();
 	private static final String DAD_JOKE_URL = "https://icanhazdadjoke.com/";
 
 	public static Component getDadJoke() throws IOException {
@@ -58,6 +62,16 @@ public class DadAbase {
 			if (connection != null) {
 				connection.disconnect();
 			}
+		}
+	}
+
+	public static Component getInternalDadJoke() {
+		List<? extends String> internalDadabase = JokeConfig.CLIENT.internal_dadabase.get();
+		if(internalDadabase.isEmpty()) {
+			return TextComponent.EMPTY;
+		} else {
+			int idx = random.nextInt(internalDadabase.size());
+			return new TextComponent(internalDadabase.get(idx));
 		}
 	}
 }
