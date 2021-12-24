@@ -1,0 +1,22 @@
+modLoader="javafml"
+loaderVersion="[38,)"
+issueTrackerURL="https://github.com/Mrbysco/DailyDad/issues"
+license="MIT"
+
+[[mods]]
+modId="dailydad"
+version="${file.jarVersion}"
+displayName="Daily Dad"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/daily-dad"
+authors="Mrbysco"
+description='''
+Sometimes I tell dad jokes
+
+Sometimes he laughs at them
+'''
+[[dependencies.dailydad]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.18,1.19)"
+ordering="NONE"
+side="BOTH"
