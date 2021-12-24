@@ -5,6 +5,10 @@
 ## About ##
 Daily Dad sends you a dad joke every time you join a world
 
+### Disclaimer ###
+The dad jokes are provided by the [icanhazdadjoke API](https://icanhazdadjoke.com/) unless a connection can't be made, 
+during which it'll get a random dad-joke from an internal database.
+
 ## License ##
 * Daily Dad licensed under the MIT license
   - (c) 2021 Mrbysco
