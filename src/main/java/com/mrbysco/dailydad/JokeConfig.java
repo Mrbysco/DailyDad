@@ -4,9 +4,10 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
+import net.minecraftforge.fml.config.ModConfig;
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class JokeConfig {
@@ -58,7 +59,7 @@ public class JokeConfig {
 
 			internal_dadabase = builder
 					.comment("The internal dad-abase of jokes for in case the mod is unable to reach the API")
-					.defineList("internal_dadabase", List.of(dadabase), o -> (o instanceof String));
+					.defineList("internal_dadabase", Arrays.asList(dadabase), o -> (o instanceof String));
 
 			builder.pop();
 		}
@@ -73,12 +74,12 @@ public class JokeConfig {
 	}
 
 	@SubscribeEvent
-	public static void onLoad(final ModConfigEvent.Loading configEvent) {
+	public static void onLoad(final ModConfig.Loading configEvent) {
 		DailyDad.LOGGER.debug("Loaded Daily Dad's config file {}", configEvent.getConfig().getFileName());
 	}
 
 	@SubscribeEvent
-	public static void onFileChange(ModConfigEvent.Reloading configEvent) {
+	public static void onFileChange(ModConfig.Reloading configEvent) {
 		DailyDad.LOGGER.debug("Daily Dad's config just got changed on the file system!");
 	}
 }

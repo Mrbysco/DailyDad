@@ -1,33 +1,33 @@
 package com.mrbysco.dailydad.client;
 
-import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mrbysco.dailydad.DailyDad;
 import com.mrbysco.dailydad.JokeConfig;
 import com.mrbysco.dailydad.jokes.DadAbase;
-import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.screens.ConnectScreen;
-import net.minecraft.client.gui.screens.LevelLoadingScreen;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.screen.ConnectingScreen;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.WorldLoadProgressScreen;
+import net.minecraft.util.Util;
+import net.minecraft.util.text.IFormattableTextComponent;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent.LoggedInEvent;
-import net.minecraftforge.client.event.ScreenEvent.DrawScreenEvent;
-import net.minecraftforge.client.event.ScreenOpenEvent;
+import net.minecraftforge.client.event.GuiOpenEvent;
+import net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.io.IOException;
 
 public class JokeHandler {
-	private MutableComponent joke = null;
+	private ITextComponent joke = null;
 
 	@SubscribeEvent
-	public void onScreenOpen(ScreenOpenEvent event) {
-		final Screen screen = event.getScreen();
-		if (screen instanceof ConnectScreen || screen instanceof LevelLoadingScreen) {
+	public void onScreenOpen(GuiOpenEvent event) {
+		final Screen screen = event.getGui();
+		if (screen instanceof ConnectingScreen || screen instanceof WorldLoadProgressScreen) {
 			generateJoke(false);
 		}
 	}
@@ -35,11 +35,11 @@ public class JokeHandler {
 	@SubscribeEvent
 	public void onDrawScreen(DrawScreenEvent event) {
 		if(JokeConfig.CLIENT.onLoading.get()) {
-			final Screen screen = event.getScreen();
-			if (screen instanceof ConnectScreen || screen instanceof LevelLoadingScreen) {
+			final Screen screen = event.getGui();
+			if (screen instanceof ConnectingScreen || screen instanceof WorldLoadProgressScreen) {
 				if (joke != null) {
-					final Font font = Minecraft.getInstance().font;
-					PoseStack poseStack = event.getPoseStack();
+					final FontRenderer font = Minecraft.getInstance().font;
+					MatrixStack poseStack = event.getMatrixStack();
 
 					int height = font.lineHeight;
 					RenderHelper.renderJoke(poseStack, joke, 6, height);
@@ -64,7 +64,7 @@ public class JokeHandler {
 		this.joke = null;
 
 		try {
-			Component jokeComponent = DadAbase.getDadJoke();
+			ITextComponent jokeComponent = DadAbase.getDadJoke();
 			if(jokeComponent != null) {
 				joke = getFinalComponent(jokeComponent, withName);
 			}
@@ -76,15 +76,15 @@ public class JokeHandler {
 		if(joke == null) {
 			DailyDad.LOGGER.info("Getting internal dad joke instead");
 
-			MutableComponent internalJoke = DadAbase.getInternalDadJoke().copy();
+			ITextComponent internalJoke = DadAbase.getInternalDadJoke().copy();
 
 			joke = getFinalComponent(internalJoke, withName);
 		}
 	}
 
-	private MutableComponent getFinalComponent(Component component, boolean withName) {
+	private IFormattableTextComponent getFinalComponent(ITextComponent component, boolean withName) {
 		if(withName) {
-			return new TextComponent("<DailyDad> ").withStyle(ChatFormatting.GOLD).append(component);
+			return new StringTextComponent("<DailyDad> ").withStyle(TextFormatting.GOLD).append(component);
 		} else {
 			return component.copy();
 		}

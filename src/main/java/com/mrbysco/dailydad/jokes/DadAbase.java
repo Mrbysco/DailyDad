@@ -2,10 +2,10 @@ package com.mrbysco.dailydad.jokes;
 
 import com.mrbysco.dailydad.DailyDad;
 import com.mrbysco.dailydad.JokeConfig;
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.util.text.IFormattableTextComponent;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.ByteArrayOutputStream;
@@ -19,7 +19,7 @@ public class DadAbase {
 	private static final Random random = new Random();
 	private static final String DAD_JOKE_URL = "https://icanhazdadjoke.com/";
 
-	public static Component getDadJoke() throws IOException {
+	public static ITextComponent getDadJoke() throws IOException {
 		HttpsURLConnection connection = null;
 		try {
 			connection = (HttpsURLConnection) new URL(DAD_JOKE_URL).openConnection();
@@ -48,14 +48,14 @@ public class DadAbase {
 			}
 
 			String dadJoke = outputStream.toString();
-			MutableComponent jokeComponent = TextComponent.EMPTY.copy();
+			IFormattableTextComponent jokeComponent = StringTextComponent.EMPTY.copy();
 			String[] lines = dadJoke.split("\\R");
 			for (int i = 0; i < lines.length; i++) {
 				String line = lines[i];
 				if(i != (lines.length - 1)) {
 					line += "\n";
 				}
-				jokeComponent = jokeComponent.append(new TextComponent(line).withStyle(ChatFormatting.WHITE));
+				jokeComponent = jokeComponent.append(new StringTextComponent(line).withStyle(TextFormatting.WHITE));
 			}
 			return jokeComponent;
 		} finally {
@@ -65,13 +65,13 @@ public class DadAbase {
 		}
 	}
 
-	public static Component getInternalDadJoke() {
+	public static ITextComponent getInternalDadJoke() {
 		List<? extends String> internalDadabase = JokeConfig.CLIENT.internal_dadabase.get();
 		if(internalDadabase.isEmpty()) {
-			return TextComponent.EMPTY;
+			return StringTextComponent.EMPTY;
 		} else {
 			int idx = random.nextInt(internalDadabase.size());
-			return new TextComponent(internalDadabase.get(idx));
+			return new StringTextComponent(internalDadabase.get(idx));
 		}
 	}
 }
