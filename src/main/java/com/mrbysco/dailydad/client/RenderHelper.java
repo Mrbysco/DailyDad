@@ -54,18 +54,18 @@ public class RenderHelper {
 			stack.pushPose();
 
 			Matrix4f matrix4f = stack.last().pose();
-			MultiBufferSource.BufferSource multibuffersource$buffersource = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
+			MultiBufferSource.BufferSource bufferSource = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
 			stack.translate(0.0D, 0.0D, 400.0D);
 			int l1 = k2;
 
 			for(int i2 = 0; i2 < tooltipComponents.size(); ++i2) {
-				ClientTooltipComponent clienttooltipcomponent1 = tooltipComponents.get(i2);
-				clienttooltipcomponent1.renderText(font, j2, l1, matrix4f, multibuffersource$buffersource);
+				ClientTooltipComponent clientTooltipComponent = tooltipComponents.get(i2);
+				clientTooltipComponent.renderText(font, j2, l1, matrix4f, bufferSource);
 
-				l1 += clienttooltipcomponent1.getHeight() + (i2 == 0 ? 2 : 0);
+				l1 += clientTooltipComponent.getHeight() + (i2 == 0 ? 2 : 0);
 			}
 
-			multibuffersource$buffersource.endBatch();
+			bufferSource.endBatch();
 			stack.popPose();
 		}
 	}

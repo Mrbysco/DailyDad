@@ -1,7 +1,9 @@
 package com.mrbysco.dailydad;
 
 import com.mrbysco.dailydad.client.JokeHandler;
+import com.mrbysco.dailydad.commands.DadCommands;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RegisterClientCommandsEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
@@ -31,6 +33,11 @@ public class DailyDad {
 
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
             MinecraftForge.EVENT_BUS.register(new JokeHandler());
+            MinecraftForge.EVENT_BUS.addListener(this::onCommandRegister);
         });
+    }
+
+    public void onCommandRegister(RegisterClientCommandsEvent event) {
+        DadCommands.initializeCommands(event.getDispatcher());
     }
 }
