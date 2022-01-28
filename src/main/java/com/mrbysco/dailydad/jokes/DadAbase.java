@@ -1,7 +1,7 @@
 package com.mrbysco.dailydad.jokes;
 
 import com.mrbysco.dailydad.DailyDad;
-import com.mrbysco.dailydad.JokeConfig;
+import com.mrbysco.dailydad.config.JokeConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;

@@ -1,8 +1,10 @@
 package com.mrbysco.dailydad.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.text2speech.Narrator;
 import com.mrbysco.dailydad.DailyDad;
-import com.mrbysco.dailydad.JokeConfig;
+import com.mrbysco.dailydad.config.JokeConfig;
+import com.mrbysco.dailydad.config.JokeEnum;
 import com.mrbysco.dailydad.jokes.DadAbase;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
@@ -26,15 +28,18 @@ public class JokeHandler {
 
 	@SubscribeEvent
 	public void onScreenOpen(ScreenOpenEvent event) {
-		final Screen screen = event.getScreen();
-		if (screen instanceof ConnectScreen || screen instanceof LevelLoadingScreen) {
-			generateJoke(false);
+		JokeEnum jokeEnum = JokeConfig.CLIENT.jokeType.get();
+		if(jokeEnum == JokeEnum.LOADING) {
+			final Screen screen = event.getScreen();
+			if (screen instanceof ConnectScreen || screen instanceof LevelLoadingScreen) {
+				generateJoke(jokeEnum);
+			}
 		}
 	}
 
 	@SubscribeEvent
 	public void onDrawScreen(DrawScreenEvent event) {
-		if(JokeConfig.CLIENT.onLoading.get()) {
+		if(JokeConfig.CLIENT.jokeType.get() == JokeEnum.LOADING) {
 			final Screen screen = event.getScreen();
 			if (screen instanceof ConnectScreen || screen instanceof LevelLoadingScreen) {
 				if (joke != null) {
@@ -50,23 +55,30 @@ public class JokeHandler {
 
 	@SubscribeEvent
 	public void onLoggedIn(LoggedInEvent event) {
-		if(!JokeConfig.CLIENT.onLoading.get() && event.getPlayer() != null) {
-			generateJoke(true);
+		if(event.getPlayer() != null) {
+			JokeEnum jokeEnum = JokeConfig.CLIENT.jokeType.get();
+			if(jokeEnum == JokeEnum.CHAT) {
+				generateJoke(jokeEnum);
 
-			event.getPlayer().sendMessage(joke, Util.NIL_UUID);
+				event.getPlayer().sendMessage(joke, Util.NIL_UUID);
+			} else if(jokeEnum == JokeEnum.TTS) {
+				generateJoke(jokeEnum);
+				Narrator.getNarrator().say("Daily Dad says: " + joke.getString(), true);
+				event.getPlayer().sendMessage(new TextComponent("<DailyDad> ").withStyle(ChatFormatting.GOLD).append(joke), Util.NIL_UUID);
+			}
 
 			//Reset
 			joke = null;
 		}
 	}
 
-	private void generateJoke(boolean withName) {
+	private void generateJoke(JokeEnum jokeEnum) {
 		this.joke = null;
 
 		try {
 			Component jokeComponent = DadAbase.getDadJoke();
 			if(jokeComponent != null) {
-				joke = getFinalComponent(jokeComponent, withName);
+				joke = getFinalComponent(jokeComponent, jokeEnum.isWithName());
 			}
 		} catch(IOException e) {
 			//NOOP
@@ -78,7 +90,7 @@ public class JokeHandler {
 
 			MutableComponent internalJoke = DadAbase.getInternalDadJoke().copy();
 
-			joke = getFinalComponent(internalJoke, withName);
+			joke = getFinalComponent(internalJoke, jokeEnum.isWithName());
 		}
 	}
 

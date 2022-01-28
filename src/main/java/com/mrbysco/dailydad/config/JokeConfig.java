@@ -1,8 +1,9 @@
-package com.mrbysco.dailydad;
+package com.mrbysco.dailydad.config;
 
+import com.mrbysco.dailydad.DailyDad;
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
+import net.minecraftforge.common.ForgeConfigSpec.EnumValue;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 import org.apache.commons.lang3.tuple.Pair;
@@ -11,16 +12,16 @@ import java.util.List;
 
 public class JokeConfig {
 	public static class Client {
-		public final BooleanValue onLoading;
+		public final EnumValue<JokeEnum> jokeType;
 		public final ConfigValue<List<? extends String>> internal_dadabase;
 
 		Client(ForgeConfigSpec.Builder builder) {
 			builder.comment("Client settings")
 					.push("client");
 
-			onLoading = builder
-					.comment("When enabled it will display a dad joke on world loading instead of when loading is finished [default: false]")
-					.define("onLoading", false);
+			jokeType = builder
+					.comment("Defines when a joke will be told [default: CHAT]")
+					.defineEnum("jokeType", JokeEnum.CHAT);
 
 			String[] dadabase = new String[]
 					{

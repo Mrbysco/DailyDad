@@ -2,6 +2,7 @@ package com.mrbysco.dailydad;
 
 import com.mrbysco.dailydad.client.JokeHandler;
 import com.mrbysco.dailydad.commands.DadCommands;
+import com.mrbysco.dailydad.config.JokeConfig;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterClientCommandsEvent;
 import net.minecraftforge.common.MinecraftForge;

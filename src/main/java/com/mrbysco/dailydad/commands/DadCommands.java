@@ -4,7 +4,10 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.text2speech.Narrator;
 import com.mrbysco.dailydad.DailyDad;
+import com.mrbysco.dailydad.config.JokeConfig;
+import com.mrbysco.dailydad.config.JokeEnum;
 import com.mrbysco.dailydad.jokes.DadAbase;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
@@ -28,6 +31,9 @@ public class DadCommands {
 		try {
 			Component jokeComponent = DadAbase.getDadJoke();
 			if(jokeComponent != null) {
+				if(JokeConfig.CLIENT.jokeType.get() == JokeEnum.TTS) {
+					Narrator.getNarrator().say("Daily Dad says: " + jokeComponent.getString(), true);
+				}
 				joke = new TextComponent("<DailyDad> ").withStyle(ChatFormatting.GOLD).append(jokeComponent);
 			}
 		} catch(IOException e) {
@@ -39,6 +45,9 @@ public class DadCommands {
 			DailyDad.LOGGER.info("Getting internal dad joke instead");
 
 			MutableComponent internalJoke = DadAbase.getInternalDadJoke().copy();
+			if(JokeConfig.CLIENT.jokeType.get() == JokeEnum.TTS) {
+				Narrator.getNarrator().say("Daily Dad says: " + internalJoke.getString(), true);
+			}
 			joke = new TextComponent("<DailyDad> ").withStyle(ChatFormatting.GOLD).append(internalJoke);
 		}
 		ctx.getSource().sendSuccess(joke, false);
