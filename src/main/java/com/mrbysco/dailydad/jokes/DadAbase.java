@@ -12,6 +12,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.text.Normalizer;
 import java.util.List;
 import java.util.Random;
 
@@ -55,7 +56,7 @@ public class DadAbase {
 				if(i != (lines.length - 1)) {
 					line += "\n";
 				}
-				jokeComponent = jokeComponent.append(new TextComponent(line).withStyle(ChatFormatting.WHITE));
+				jokeComponent = jokeComponent.append(new TextComponent(normalizeJoke(line)).withStyle(ChatFormatting.WHITE));
 			}
 			return jokeComponent;
 		} finally {
@@ -71,7 +72,13 @@ public class DadAbase {
 			return TextComponent.EMPTY;
 		} else {
 			int idx = random.nextInt(internalDadabase.size());
-			return new TextComponent(internalDadabase.get(idx));
+			return new TextComponent(normalizeJoke(internalDadabase.get(idx)));
 		}
+	}
+
+	public static String normalizeJoke(String joke) {
+		return Normalizer
+				.normalize(joke, Normalizer.Form.NFD)
+				.replaceAll("[^\\p{ASCII}]", "");
 	}
 }
