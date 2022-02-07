@@ -13,20 +13,20 @@ import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.TextComponent;
 
 public class DadCommands {
-    public static void initializeCommands(CommandDispatcher<CommandSourceStack> dispatcher) {
-        final LiteralArgumentBuilder<CommandSourceStack> root = Commands.literal("dailydad");
-        root.requires((p_198721_0_) -> p_198721_0_.hasPermission(2))
-                .then(Commands.literal("joke").executes(DadCommands::sendJoke));
-        dispatcher.register(root);
-    }
+	public static void initializeCommands(CommandDispatcher<CommandSourceStack> dispatcher) {
+		final LiteralArgumentBuilder<CommandSourceStack> root = Commands.literal("dailydad");
+		root.requires((p_198721_0_) -> p_198721_0_.hasPermission(2))
+				.then(Commands.literal("joke").executes(DadCommands::sendJoke));
+		dispatcher.register(root);
+	}
 
-    private static int sendJoke(CommandContext<CommandSourceStack> ctx) {
-        DadAbase.getJokeAsync((joke, component) -> {
-            if(JokeConfig.CLIENT.jokeType.get() == JokeEnum.TTS) {
-                Narrator.getNarrator().say("Daily Dad says: " + joke, true);
-            }
-            ctx.getSource().sendSuccess(new TextComponent("<DailyDad> ").withStyle(ChatFormatting.GOLD).append(component), false);
-        });
-        return 0;
-    }
+	private static int sendJoke(CommandContext<CommandSourceStack> ctx) {
+		DadAbase.getJokeAsync((joke, component) -> {
+			if (JokeConfig.CLIENT.jokeType.get() == JokeEnum.TTS) {
+				Narrator.getNarrator().say("Daily Dad says: " + joke, true);
+			}
+			ctx.getSource().sendSuccess(new TextComponent("<DailyDad> ").withStyle(ChatFormatting.GOLD).append(component), false);
+		});
+		return 0;
+	}
 }

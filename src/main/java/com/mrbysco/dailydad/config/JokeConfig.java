@@ -67,6 +67,7 @@ public class JokeConfig {
 
 	public static final ForgeConfigSpec clientSpec;
 	public static final Client CLIENT;
+
 	static {
 		final Pair<Client, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Client::new);
 		clientSpec = specPair.getRight();
