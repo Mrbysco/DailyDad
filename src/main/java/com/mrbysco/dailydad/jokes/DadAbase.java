@@ -35,7 +35,11 @@ public class DadAbase {
 	}
 
 	public static String getDadJoke() {
-		HttpRequest request = HttpRequest.newBuilder().uri(URI.create(DAD_JOKE_URL)).header("Accept-Encoding", "gzip").header("Accept", "text/plain").header("User-Agent", "Daily Dad Minecraft Mod (https://github.com/Mrbysco/DailyDad)").timeout(Duration.ofMinutes(1)).GET().build();
+		HttpRequest request = HttpRequest.newBuilder().uri(URI.create(DAD_JOKE_URL))
+				.header("Accept-Encoding", "gzip")
+				.header("Accept", "text/plain")
+				.header("User-Agent", "Daily Dad Minecraft Mod (https://github.com/Mrbysco/DailyDad)")
+				.timeout(Duration.ofMinutes(1)).GET().build();
 
 		String dadJoke = getResponseAsString(request);
 
