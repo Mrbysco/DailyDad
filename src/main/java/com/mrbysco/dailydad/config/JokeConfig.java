@@ -2,6 +2,7 @@ package com.mrbysco.dailydad.config;
 
 import com.mrbysco.dailydad.DailyDad;
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 import net.minecraftforge.common.ForgeConfigSpec.EnumValue;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -14,6 +15,7 @@ public class JokeConfig {
 	public static class Client {
 		public final EnumValue<JokeEnum> jokeType;
 		public final ConfigValue<List<? extends String>> internal_dadabase;
+		public final BooleanValue jokeUponRespawn;
 
 		Client(ForgeConfigSpec.Builder builder) {
 			builder.comment("Client settings")
@@ -60,6 +62,10 @@ public class JokeConfig {
 			internal_dadabase = builder
 					.comment("The internal dad-abase of jokes for in case the mod is unable to reach the API")
 					.defineList("internal_dadabase", List.of(dadabase), o -> (o instanceof String));
+
+			jokeUponRespawn = builder
+					.comment("Should a joke be told upon death [default: false]")
+					.define("jokeUponRespawn", false);
 
 			builder.pop();
 		}

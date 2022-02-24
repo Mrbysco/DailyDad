@@ -15,6 +15,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent.LoggedInEvent;
+import net.minecraftforge.client.event.ClientPlayerNetworkEvent.RespawnEvent;
 import net.minecraftforge.client.event.ScreenEvent.DrawScreenEvent;
 import net.minecraftforge.client.event.ScreenOpenEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -64,6 +65,25 @@ public class JokeHandler {
 			}
 			//Reset
 			joke = null;
+		}
+	}
+
+	@SubscribeEvent
+	public void onPlayerRespawn(RespawnEvent event) {
+		if(JokeConfig.CLIENT.jokeUponRespawn.get()) {
+			if(event.getOldPlayer().isDeadOrDying()) {
+				JokeEnum jokeEnum = JokeConfig.CLIENT.jokeType.get();
+				if (jokeEnum == JokeEnum.CHAT || jokeEnum == JokeEnum.TTS) {
+					DadAbase.getJokeAsync((joke, component) -> {
+						if (jokeEnum == JokeEnum.TTS) {
+							Narrator.getNarrator().say("Daily Dad says: " + joke, true);
+						}
+						event.getPlayer().sendMessage(new TextComponent("<DailyDad> ").withStyle(ChatFormatting.GOLD).append(component), Util.NIL_UUID);
+					});
+				}
+				//Reset
+				joke = null;
+			}
 		}
 	}
 }
