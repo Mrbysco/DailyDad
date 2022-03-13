@@ -1,5 +1,6 @@
 package com.mrbysco.dailydad;
 
+import com.mojang.logging.LogUtils;
 import com.mrbysco.dailydad.client.JokeHandler;
 import com.mrbysco.dailydad.commands.DadCommands;
 import com.mrbysco.dailydad.config.JokeConfig;
@@ -14,13 +15,12 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 
 @Mod(DailyDad.MOD_ID)
 public class DailyDad {
 	public static final String MOD_ID = "dailydad";
-	public static final Logger LOGGER = LogManager.getLogger();
+	public static final Logger LOGGER = LogUtils.getLogger();
 
 	public DailyDad() {
 		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();

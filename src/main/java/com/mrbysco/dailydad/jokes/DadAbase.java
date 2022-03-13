@@ -69,7 +69,7 @@ public class DadAbase {
 				default -> throw new UnsupportedOperationException("Unexpected Content-Encoding: " + encoding);
 			};
 		} catch (Exception e) {
-			DailyDad.LOGGER.throwing(new IOException("Fetching dad Joke failed!" + e.getMessage()));
+			DailyDad.LOGGER.error("Fetching dad Joke failed!", new IOException(e.getMessage()));
 		}
 		return "";
 	}

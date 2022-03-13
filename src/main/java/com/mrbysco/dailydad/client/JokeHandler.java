@@ -70,8 +70,8 @@ public class JokeHandler {
 
 	@SubscribeEvent
 	public void onPlayerRespawn(RespawnEvent event) {
-		if(JokeConfig.CLIENT.jokeUponRespawn.get()) {
-			if(event.getOldPlayer().isDeadOrDying()) {
+		if (JokeConfig.CLIENT.jokeUponRespawn.get()) {
+			if (event.getOldPlayer().isDeadOrDying()) {
 				JokeEnum jokeEnum = JokeConfig.CLIENT.jokeType.get();
 				if (jokeEnum == JokeEnum.CHAT || jokeEnum == JokeEnum.TTS) {
 					DadAbase.getJokeAsync((joke, component) -> {
