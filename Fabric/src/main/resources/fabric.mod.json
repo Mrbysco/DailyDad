@@ -1,0 +1,44 @@
+{
+    "schemaVersion": 1,
+    "id": "dailydad",
+    "version": "${version}",
+  
+    "name": "Daily Dad",
+    "description": "Sometimes I tell dad jokes, Sometimes he laughs at them",
+    "authors": [
+      "Mrbysco"
+    ],
+    "contact": {
+      "homepage": "https://www.curseforge.com/minecraft/mc-mods/daily-dad",
+      "sources": "https://github.com/Mrbysco/DailyDad",
+      "issues": "https://github.com/Mrbysco/DailyDad/issues"
+    },
+  
+    "license": "MIT",
+    "icon": "assets/modid/icon.png",
+  
+    "environment": "*",
+    "entrypoints": {
+      "client": [
+		"com.mrbysco.dailydad.DailyDadFabric"
+      ],
+      "modmenu": [
+        "com.mrbysco.dailydad.config.JokeMenuIntegration"
+      ]
+    },
+    "mixins": [
+      "dailydad.mixins.json",
+	  "dailydad.fabric.mixins.json"
+    ],
+  
+    "depends": {
+      "fabricloader": ">=0.13",
+      "fabric": "*",
+      "minecraft": "1.18.x",
+      "java": ">=17",
+      "cloth-config": ">=6.2.57"
+    },
+    "suggests": {
+      "another-mod": "*"
+    }
+}
