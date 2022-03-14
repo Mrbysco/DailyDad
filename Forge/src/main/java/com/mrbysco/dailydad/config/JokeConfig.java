@@ -87,6 +87,6 @@ public class JokeConfig {
 
 	@SubscribeEvent
 	public static void onFileChange(ModConfigEvent.Reloading configEvent) {
-		Constants.LOGGER.debug("Daily Dad's config just got changed on the file system!");
+		Constants.LOGGER.warn("Daily Dad's config just got changed on the file system!");
 	}
 }

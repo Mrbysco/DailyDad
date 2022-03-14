@@ -33,7 +33,7 @@ public class ForgePlatformHelper implements IPlatformHelper {
 	public void getJokeAsync(JokeResolved resolved) {
 		new Thread(() -> {
 			String joke = DadAbase.getDadJoke();
-			LogicalSidedProvider.WORKQUEUE.get(LogicalSide.CLIENT).execute(() -> resolved.onResolve(joke, DadAbase.convertJokeToComponent(joke)));
+			resolved.onResolve(joke, DadAbase.convertJokeToComponent(joke));
 		}).start();
 	}
 }
