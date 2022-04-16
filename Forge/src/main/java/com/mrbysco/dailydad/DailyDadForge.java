@@ -1,6 +1,6 @@
 package com.mrbysco.dailydad;
 
-import com.mrbysco.dailydad.commands.ForgeDadCommands;
+import com.mrbysco.dailydad.commands.DadCommands;
 import com.mrbysco.dailydad.config.JokeConfig;
 import com.mrbysco.dailydad.handler.JokeHandler;
 import net.minecraftforge.api.distmarker.Dist;
@@ -10,6 +10,7 @@ import net.minecraftforge.client.event.RegisterClientCommandsEvent;
 import net.minecraftforge.client.event.ScreenEvent.DrawScreenEvent;
 import net.minecraftforge.client.event.ScreenOpenEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.IExtensionPoint;
@@ -38,6 +39,7 @@ public class DailyDadForge {
 			MinecraftForge.EVENT_BUS.addListener(this::onLoggedIn);
 			MinecraftForge.EVENT_BUS.addListener(this::onPlayerRespawn);
 			MinecraftForge.EVENT_BUS.addListener(this::onCommandRegister);
+			MinecraftForge.EVENT_BUS.addListener(this::onServerCommandRegister);
 		});
 	}
 
@@ -58,6 +60,11 @@ public class DailyDadForge {
 	}
 
 	public void onCommandRegister(RegisterClientCommandsEvent event) {
-		ForgeDadCommands.initializeCommands(event.getDispatcher());
+		DadCommands.initializeCommands(event.getDispatcher());
+	}
+
+	public void onServerCommandRegister(RegisterCommandsEvent event) {
+		//Only registers in singleplayer
+		DadCommands.initializeCommands(event.getDispatcher());
 	}
 }

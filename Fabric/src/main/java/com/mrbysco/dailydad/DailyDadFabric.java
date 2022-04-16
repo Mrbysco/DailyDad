@@ -1,6 +1,7 @@
 package com.mrbysco.dailydad;
 
 import com.mrbysco.dailydad.callback.ClientEventsCallback;
+import com.mrbysco.dailydad.commands.DadCommands;
 import com.mrbysco.dailydad.commands.FabricDadCommands;
 import com.mrbysco.dailydad.config.JokeConfig;
 import com.mrbysco.dailydad.handler.JokeHandler;
@@ -9,6 +10,7 @@ import me.shedaniel.autoconfig.ConfigHolder;
 import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
+import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.minecraft.client.gui.screens.ConnectScreen;
 import net.minecraft.client.gui.screens.LevelLoadingScreen;
 import net.minecraft.world.InteractionResult;
@@ -65,8 +67,6 @@ public class DailyDadFabric implements ClientModInitializer {
 			Constants.LOGGER.error("Failed to create filesystem watcher for configs", e);
 		}
 
-		FabricDadCommands.initializeCommands();
-
 		ScreenEvents.BEFORE_INIT.register((client, screen, scaledWidth, scaledHeight) -> {
 			if (screen instanceof ConnectScreen || screen instanceof LevelLoadingScreen) {
 				JokeHandler.onScreenOpen(screen);
@@ -87,6 +87,15 @@ public class DailyDadFabric implements ClientModInitializer {
 		ClientEventsCallback.RESPAWN_EVENT.register((oldPlayer, newPlayer) -> {
 			JokeHandler.onPlayerRespawn(oldPlayer, newPlayer);
 			return InteractionResult.PASS;
+		});
+
+		CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
+			if (!dedicated) {
+				FabricDadCommands.initializeCommands();
+			} else {
+				//Only registers in singleplayer
+				DadCommands.initializeCommands(dispatcher);
+			}
 		});
 	}
 }

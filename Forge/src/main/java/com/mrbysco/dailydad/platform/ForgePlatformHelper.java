@@ -5,10 +5,6 @@ import com.mrbysco.dailydad.config.JokeEnum;
 import com.mrbysco.dailydad.jokes.DadAbase;
 import com.mrbysco.dailydad.jokes.JokeResolved;
 import com.mrbysco.dailydad.platform.services.IPlatformHelper;
-import net.minecraftforge.common.util.LogicalSidedProvider;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.loading.FMLLoader;
 
 import java.util.List;
 
