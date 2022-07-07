@@ -3,8 +3,8 @@ package com.mrbysco.dailydad.jokes;
 import com.mrbysco.dailydad.Constants;
 import com.mrbysco.dailydad.platform.Services;
 import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -42,10 +42,10 @@ public class DadAbase {
 	}
 
 	public static MutableComponent convertJokeToComponent(String joke) {
-		MutableComponent jokeComponent = TextComponent.EMPTY.copy();
+		MutableComponent jokeComponent = Component.literal("");
 		String[] lines = joke.split("\\R");
 		for (int i = 0; i < lines.length; i++) {
-			jokeComponent.append(new TextComponent(lines[i] + (i != lines.length - 1 ? "\n" : "")).withStyle(ChatFormatting.WHITE));
+			jokeComponent.append(Component.literal(lines[i] + (i != lines.length - 1 ? "\n" : "")).withStyle(ChatFormatting.WHITE));
 		}
 		return jokeComponent;
 	}

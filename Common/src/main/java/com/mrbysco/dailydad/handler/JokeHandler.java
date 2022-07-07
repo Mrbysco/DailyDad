@@ -6,14 +6,13 @@ import com.mrbysco.dailydad.client.RenderHelper;
 import com.mrbysco.dailydad.config.JokeEnum;
 import com.mrbysco.dailydad.platform.Services;
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.ConnectScreen;
 import net.minecraft.client.gui.screens.LevelLoadingScreen;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.entity.player.Player;
 
 import javax.annotation.Nullable;
@@ -54,7 +53,7 @@ public class JokeHandler {
 					if (jokeEnum == JokeEnum.TTS) {
 						Narrator.getNarrator().say("Daily Dad says: " + joke, true);
 					}
-					player.sendMessage(new TextComponent("<DailyDad> ").withStyle(ChatFormatting.GOLD).append(component), Util.NIL_UUID);
+					player.sendSystemMessage(Component.literal("<DailyDad> ").withStyle(ChatFormatting.GOLD).append(component));
 				});
 			}
 			//Reset
@@ -71,7 +70,7 @@ public class JokeHandler {
 						if (jokeEnum == JokeEnum.TTS) {
 							Narrator.getNarrator().say("Daily Dad says: " + joke, true);
 						}
-						newPlayer.sendMessage(new TextComponent("<DailyDad> ").withStyle(ChatFormatting.GOLD).append(component), Util.NIL_UUID);
+						newPlayer.sendSystemMessage(Component.literal("<DailyDad> ").withStyle(ChatFormatting.GOLD).append(component));
 					});
 				}
 				//Reset

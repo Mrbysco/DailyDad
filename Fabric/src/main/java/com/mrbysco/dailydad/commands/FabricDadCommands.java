@@ -5,19 +5,19 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.text2speech.Narrator;
 import com.mrbysco.dailydad.config.JokeEnum;
 import com.mrbysco.dailydad.platform.Services;
-import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
-import net.fabricmc.fabric.api.client.command.v1.FabricClientCommandSource;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.entity.player.Player;
 
 public class FabricDadCommands {
 	public static void initializeCommands() {
 		final LiteralArgumentBuilder<FabricClientCommandSource> root = ClientCommandManager.literal("dailydad");
 		root.then(ClientCommandManager.literal("joke").executes(FabricDadCommands::sendJoke));
-		ClientCommandManager.DISPATCHER.register(root);
+		ClientCommandManager.getActiveDispatcher().register(root);
 	}
 
 	private static int sendJoke(CommandContext<FabricClientCommandSource> ctx) {
@@ -26,9 +26,9 @@ public class FabricDadCommands {
 				Narrator.getNarrator().say("Daily Dad says: " + joke, true);
 			}
 
-			MutableComponent finalComponent = new TextComponent("<DailyDad> ").withStyle(ChatFormatting.GOLD).append(component);
+			MutableComponent finalComponent = Component.literal("<DailyDad> ").withStyle(ChatFormatting.GOLD).append(component);
 			if (ctx.getSource().getEntity() instanceof Player player) {
-				player.sendMessage(finalComponent, Util.NIL_UUID);
+				player.sendSystemMessage(finalComponent);
 			}
 		});
 		return 0;

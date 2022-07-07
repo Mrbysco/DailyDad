@@ -10,9 +10,10 @@ import me.shedaniel.autoconfig.ConfigHolder;
 import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
-import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.client.gui.screens.ConnectScreen;
 import net.minecraft.client.gui.screens.LevelLoadingScreen;
+import net.minecraft.commands.Commands.CommandSelection;
 import net.minecraft.world.InteractionResult;
 
 import java.io.IOException;
@@ -89,8 +90,8 @@ public class DailyDadFabric implements ClientModInitializer {
 			return InteractionResult.PASS;
 		});
 
-		CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
-			if (!dedicated) {
+		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
+			if (environment == CommandSelection.DEDICATED) {
 				FabricDadCommands.initializeCommands();
 			} else {
 				//Only registers in singleplayer

@@ -7,11 +7,10 @@ import com.mojang.text2speech.Narrator;
 import com.mrbysco.dailydad.config.JokeEnum;
 import com.mrbysco.dailydad.platform.Services;
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.entity.player.Player;
 
 public class DadCommands {
@@ -27,9 +26,9 @@ public class DadCommands {
 				Narrator.getNarrator().say("Daily Dad says: " + joke, true);
 			}
 
-			MutableComponent finalComponent = new TextComponent("<DailyDad> ").withStyle(ChatFormatting.GOLD).append(component);
+			MutableComponent finalComponent = Component.literal("<DailyDad> ").withStyle(ChatFormatting.GOLD).append(component);
 			if (ctx.getSource().getEntity() instanceof Player player) {
-				player.sendMessage(finalComponent, Util.NIL_UUID);
+				player.sendSystemMessage(finalComponent);
 			}
 		});
 		return 0;
