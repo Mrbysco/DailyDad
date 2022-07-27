@@ -4,13 +4,12 @@ import com.mrbysco.dailydad.commands.DadCommands;
 import com.mrbysco.dailydad.config.JokeConfig;
 import com.mrbysco.dailydad.handler.JokeHandler;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ClientPlayerNetworkEvent.LoggedInEvent;
-import net.minecraftforge.client.event.ClientPlayerNetworkEvent.RespawnEvent;
+import net.minecraftforge.client.event.ClientPlayerNetworkEvent.LoggingIn;
 import net.minecraftforge.client.event.RegisterClientCommandsEvent;
-import net.minecraftforge.client.event.ScreenEvent.DrawScreenEvent;
-import net.minecraftforge.client.event.ScreenOpenEvent;
+import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.IExtensionPoint;
@@ -43,20 +42,20 @@ public class DailyDadForge {
 		});
 	}
 
-	public void onScreenOpen(ScreenOpenEvent event) {
+	public void onScreenOpen(ScreenEvent.Opening event) {
 		JokeHandler.onScreenOpen(event.getScreen());
 	}
 
-	public void onDrawScreen(DrawScreenEvent event) {
+	public void onDrawScreen(ScreenEvent.Render event) {
 		JokeHandler.onDrawScreen(event.getScreen(), event.getPoseStack());
 	}
 
-	public void onLoggedIn(LoggedInEvent event) {
+	public void onLoggedIn(LoggingIn event) {
 		JokeHandler.onLoggedIn(event.getPlayer());
 	}
 
-	public void onPlayerRespawn(RespawnEvent event) {
-		JokeHandler.onPlayerRespawn(event.getOldPlayer(), event.getNewPlayer());
+	public void onPlayerRespawn(PlayerEvent.Clone event) {
+		JokeHandler.onPlayerRespawn(event.getOriginal(), event.getEntity());
 	}
 
 	public void onCommandRegister(RegisterClientCommandsEvent event) {
