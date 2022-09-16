@@ -1,6 +1,6 @@
 package com.mrbysco.dailydad.config;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public enum JokeEnum {
 	LOADING("LOADING"),
