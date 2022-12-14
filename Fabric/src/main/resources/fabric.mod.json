@@ -1,43 +1,39 @@
 {
-    "schemaVersion": 1,
-    "id": "dailydad",
-    "version": "${version}",
-
-    "name": "Daily Dad",
-    "description": "Sometimes I tell dad jokes, Sometimes he laughs at them",
-    "authors": [
-      "Mrbysco"
+  "schemaVersion": 1,
+  "id": "dailydad",
+  "version": "${version}",
+  "name": "Daily Dad",
+  "description": "Sometimes I tell dad jokes, Sometimes he laughs at them",
+  "authors": [
+    "Mrbysco"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/daily-dad",
+    "sources": "https://github.com/Mrbysco/DailyDad",
+    "issues": "https://github.com/Mrbysco/DailyDad/issues"
+  },
+  "license": "MIT",
+  "icon": "assets/modid/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "com.mrbysco.dailydad.DailyDadFabric"
     ],
-    "contact": {
-      "homepage": "https://www.curseforge.com/minecraft/mc-mods/daily-dad",
-      "sources": "https://github.com/Mrbysco/DailyDad",
-      "issues": "https://github.com/Mrbysco/DailyDad/issues"
-    },
-
-    "license": "MIT",
-    "icon": "assets/modid/icon.png",
-
-    "environment": "*",
-    "entrypoints": {
-      "client": [
-		"com.mrbysco.dailydad.DailyDadFabric"
-      ],
-      "modmenu": [
-        "com.mrbysco.dailydad.config.JokeMenuIntegration"
-      ]
-    },
-    "mixins": [
-	  "dailydad.fabric.mixins.json"
-    ],
-
-    "depends": {
-      "fabricloader": ">=0.14",
-      "fabric": "*",
-      "minecraft": "1.19.x",
-      "java": ">=17",
-      "cloth-config": ">=7.0.67"
-    },
-    "suggests": {
-      "another-mod": "*"
-    }
+    "modmenu": [
+      "com.mrbysco.dailydad.config.JokeMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "dailydad.fabric.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14",
+    "fabric": "*",
+    "minecraft": ">1.19.3",
+    "java": ">=17",
+    "cloth-config": ">=9"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
 }
