@@ -30,8 +30,6 @@ public class DailyDadFabric implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		CommonClass.init();
-
 		ConfigHolder<JokeConfig> holder = AutoConfig.register(JokeConfig.class, Toml4jConfigSerializer::new);
 		config = holder.getConfig();
 		try {

@@ -20,8 +20,6 @@ public class DailyDadForge {
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, JokeConfig.clientSpec);
 		eventBus.register(JokeConfig.class);
 
-		CommonClass.init();
-
 		//Make sure the mod being absent on the other network side does not cause the client to display the server as incompatible
 		ModLoadingContext.get().registerExtensionPoint(DisplayTest.class, () -> new IExtensionPoint.DisplayTest(() -> "Trans Rights Are Human Rights", (remoteVersionString, networkBool) -> networkBool));
 
