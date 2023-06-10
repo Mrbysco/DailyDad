@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -15,15 +16,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class RenderHelper {
-	public static void renderJoke(PoseStack poseStack, Component joke, int x, int y) {
-		renderJoke(poseStack, List.of(joke.getVisualOrderText()), x, y);
+	public static void renderJoke(GuiGraphics guiGraphics, Component joke, int x, int y) {
+		renderJoke(guiGraphics, List.of(joke.getVisualOrderText()), x, y);
 	}
 
-	private static void renderJoke(PoseStack poseStack, List<? extends FormattedCharSequence> formattedCharSequences, int x, int y) {
-		renderJokeInternal(poseStack, formattedCharSequences.stream().map(ClientTooltipComponent::create).collect(Collectors.toList()), x, y);
+	private static void renderJoke(GuiGraphics guiGraphics, List<? extends FormattedCharSequence> formattedCharSequences, int x, int y) {
+		renderJokeInternal(guiGraphics, formattedCharSequences.stream().map(ClientTooltipComponent::create).collect(Collectors.toList()), x, y);
 	}
 
-	private static void renderJokeInternal(PoseStack stack, List<ClientTooltipComponent> tooltipComponents, int x, int y) {
+	private static void renderJokeInternal(GuiGraphics guiGraphics, List<ClientTooltipComponent> tooltipComponents, int x, int y) {
+		final PoseStack stack = guiGraphics.pose();
 		final Minecraft minecraft = Minecraft.getInstance();
 		final Screen screen = minecraft.screen;
 		if (screen == null)

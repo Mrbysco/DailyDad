@@ -23,7 +23,7 @@ public class FabricPlatformHelper implements IPlatformHelper {
 	public JokeEnum getJokeType() {
 		if (DailyDadFabric.config == null)
 			DailyDadFabric.config = AutoConfig.getConfigHolder(JokeConfig.class).getConfig();
-		return JokeEnum.getByName(DailyDadFabric.config.general.jokeType);
+		return DailyDadFabric.config.general.jokeType;
 	}
 
 	@Override

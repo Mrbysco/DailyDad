@@ -15,7 +15,7 @@ public class ClientHandler {
 	}
 
 	public static void onDrawScreen(ScreenEvent.Render event) {
-		JokeHandler.onDrawScreen(event.getScreen(), event.getPoseStack());
+		JokeHandler.onDrawScreen(event.getScreen(), event.getGuiGraphics());
 	}
 
 	public static void onLoggedIn(LoggingIn event) {

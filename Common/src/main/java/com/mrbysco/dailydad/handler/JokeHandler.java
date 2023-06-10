@@ -1,6 +1,5 @@
 package com.mrbysco.dailydad.handler;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.text2speech.Narrator;
 import com.mrbysco.dailydad.client.RenderHelper;
 import com.mrbysco.dailydad.config.JokeEnum;
@@ -8,6 +7,7 @@ import com.mrbysco.dailydad.platform.Services;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.ConnectScreen;
 import net.minecraft.client.gui.screens.LevelLoadingScreen;
 import net.minecraft.client.gui.screens.Screen;
@@ -30,7 +30,7 @@ public class JokeHandler {
 		}
 	}
 
-	public static void onDrawScreen(Screen screen, PoseStack poseStack) {
+	public static void onDrawScreen(Screen screen, GuiGraphics guiGraphics) {
 		if (joke == null) {
 			return;
 		}
@@ -39,7 +39,7 @@ public class JokeHandler {
 				final Font font = Minecraft.getInstance().font;
 
 				int height = font.lineHeight;
-				RenderHelper.renderJoke(poseStack, joke, 6, height);
+				RenderHelper.renderJoke(guiGraphics, joke, 6, height);
 			}
 		}
 	}
