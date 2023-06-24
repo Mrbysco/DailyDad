@@ -97,6 +97,7 @@ publishing {
             artifactId base.archivesName.get()
             version project.version
             from components.java
+            fg.component(it)
         }
     }
     repositories {
