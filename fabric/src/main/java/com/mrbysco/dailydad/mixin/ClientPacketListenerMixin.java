@@ -16,14 +16,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ClientPacketListener.class)
 public class ClientPacketListenerMixin {
-	@Shadow
+
 	@Final
 	private Minecraft minecraft;
 
 	@Unique
 	private LocalPlayer tmpPlayer;
 
-	@Inject(method = "handleLogin", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Options;broadcastOptions()V"))
+	@Inject(method = "handleLogin", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/chat/MessageSignatureCache;createDefault()Lnet/minecraft/network/chat/MessageSignatureCache;"))
 	private void handleLogin(ClientboundLoginPacket packet, CallbackInfo ci) {
 		ClientEventsCallback.LOGIN_EVENT.invoker().onLogin(minecraft.player);
 	}
@@ -34,7 +34,7 @@ public class ClientPacketListenerMixin {
 	}
 
 	@Inject(method = "handleRespawn", at = @At(value = "INVOKE",
-			target = "Lnet/minecraft/client/multiplayer/ClientLevel;addPlayer(ILnet/minecraft/client/player/AbstractClientPlayer;)V"))
+			target = "Lnet/minecraft/client/multiplayer/ClientLevel;addEntity(Lnet/minecraft/world/entity/Entity;)V"))
 	private void handleRespawn(ClientboundRespawnPacket packet, CallbackInfo ci) {
 		ClientEventsCallback.RESPAWN_EVENT.invoker().onClientRespawn(tmpPlayer, minecraft.player);
 		this.tmpPlayer = null;
