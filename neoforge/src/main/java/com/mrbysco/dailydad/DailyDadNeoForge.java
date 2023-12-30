@@ -7,13 +7,11 @@ import net.neoforged.fml.IExtensionPoint.DisplayTest;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod(Constants.MOD_ID)
 public class DailyDadNeoForge {
 
-	public DailyDadNeoForge() {
-		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+	public DailyDadNeoForge(IEventBus eventBus) {
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, JokeConfig.clientSpec);
 		eventBus.register(JokeConfig.class);
 

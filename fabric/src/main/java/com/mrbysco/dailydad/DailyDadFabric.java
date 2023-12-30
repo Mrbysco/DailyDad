@@ -103,12 +103,8 @@ public class DailyDadFabric implements ClientModInitializer {
 		ScreenEvents.BEFORE_INIT.register((client, screen, scaledWidth, scaledHeight) -> {
 			if (screen instanceof ConnectScreen || screen instanceof LevelLoadingScreen) {
 				JokeHandler.onScreenOpen(screen);
-				ScreenEvents.beforeRender(screen).register((screen2, guiGraphics, mouseX, mouseY, partialTicks) -> {
-					JokeHandler.onDrawScreen(screen2, guiGraphics);
-				});
-				ScreenEvents.afterRender(screen).register((screen2, guiGraphics, mouseX, mouseY, partialTicks) -> {
-					JokeHandler.onDrawScreen(screen2, guiGraphics);
-				});
+				ScreenEvents.beforeRender(screen).register((screen2, guiGraphics, mouseX, mouseY, partialTicks) -> JokeHandler.onDrawScreen(screen2, guiGraphics));
+				ScreenEvents.afterRender(screen).register((screen2, guiGraphics, mouseX, mouseY, partialTicks) -> JokeHandler.onDrawScreen(screen2, guiGraphics));
 			}
 		});
 

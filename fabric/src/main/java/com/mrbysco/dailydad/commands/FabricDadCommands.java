@@ -1,5 +1,6 @@
 package com.mrbysco.dailydad.commands;
 
+import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.text2speech.Narrator;
@@ -16,7 +17,9 @@ public class FabricDadCommands {
 	public static void initializeCommands() {
 		final LiteralArgumentBuilder<FabricClientCommandSource> root = ClientCommandManager.literal("dailydad");
 		root.then(ClientCommandManager.literal("joke").executes(FabricDadCommands::sendJoke));
-		ClientCommandManager.getActiveDispatcher().register(root);
+		CommandDispatcher<FabricClientCommandSource> dispatcher = ClientCommandManager.getActiveDispatcher();
+		if (dispatcher != null)
+			dispatcher.register(root);
 	}
 
 	private static int sendJoke(CommandContext<FabricClientCommandSource> ctx) {
