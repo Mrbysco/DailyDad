@@ -30,6 +30,6 @@
     "minecraft": "~1.20.4",
     "java": ">=17",
     "fabric-api": "*",
-    "cloth-config": ">=12"
+    "cloth-config": ">=13"
   }
 }
