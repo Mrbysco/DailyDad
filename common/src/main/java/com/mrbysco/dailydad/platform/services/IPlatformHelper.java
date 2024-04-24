@@ -31,7 +31,7 @@ public interface IPlatformHelper {
 	/**
 	 * Gets a joke from the online dadabase (Asynchronous)
 	 *
-	 * @param resolved
+	 * @param resolved The callback to be called when the joke is resolved
 	 */
 	void getJokeAsync(JokeResolved resolved);
 }
