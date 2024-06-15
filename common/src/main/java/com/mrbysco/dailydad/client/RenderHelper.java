@@ -1,7 +1,6 @@
 package com.mrbysco.dailydad.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.Tesselator;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -57,7 +56,8 @@ public class RenderHelper {
 			stack.pushPose();
 
 			Matrix4f matrix4f = stack.last().pose();
-			MultiBufferSource.BufferSource bufferSource = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
+			Minecraft mc = Minecraft.getInstance();
+			MultiBufferSource.BufferSource bufferSource = mc.renderBuffers().bufferSource();
 			stack.translate(0.0D, 0.0D, 400.0D);
 			int l1 = k2;
 
