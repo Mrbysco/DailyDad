@@ -3,5 +3,13 @@
   "text.autoconfig.dailydad.option.general": "General",
   "text.autoconfig.dailydad.option.general.jokeType": "jokeType",
   "text.autoconfig.dailydad.option.general.internal_dadabase": "Internal Dadabase",
-  "text.autoconfig.dailydad.option.general.jokeUponRespawn": "Joke Upon Respawn"
+  "text.autoconfig.dailydad.option.general.jokeUponRespawn": "Joke Upon Respawn",
+  "dailydad.configuration.client": "Client",
+  "dailydad.configuration.client.tooltip": "Client Settings",
+  "dailydad.configuration.jokeType": "Joke Type",
+  "dailydad.configuration.jokeType.tooltip": "Defines when a joke will be told [default: CHAT]",
+  "dailydad.configuration.internal_dadabase": "Internal Dadabase",
+  "dailydad.configuration.internal_dadabase.tooltip": "The internal dad-abase of jokes for in case the mod is unable to reach the API",
+  "dailydad.configuration.jokeUponRespawn": "Joke Upon Respawn",
+  "dailydad.configuration.jokeUponRespawn.tooltip": "Should a joke be told upon death [default: false]"
 }

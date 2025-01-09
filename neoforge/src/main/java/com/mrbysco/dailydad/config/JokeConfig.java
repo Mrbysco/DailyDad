@@ -61,7 +61,7 @@ public class JokeConfig {
 
 			internal_dadabase = builder
 					.comment("The internal dad-abase of jokes for in case the mod is unable to reach the API")
-					.defineList("internal_dadabase", List.of(dadabase), o -> (o instanceof String));
+					.defineList("internal_dadabase", List.of(dadabase), String::new, o -> (o instanceof String));
 
 			jokeUponRespawn = builder
 					.comment("Should a joke be told upon death [default: false]")
