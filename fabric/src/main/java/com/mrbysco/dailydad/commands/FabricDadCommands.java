@@ -25,7 +25,7 @@ public class FabricDadCommands {
 	private static int sendJoke(CommandContext<FabricClientCommandSource> ctx) {
 		Services.PLATFORM.getJokeAsync((joke, component) -> {
 			if (Services.PLATFORM.getJokeType() == JokeEnum.TTS) {
-				Narrator.getNarrator().say("Daily Dad says: " + joke, true);
+				Narrator.getNarrator().say("Daily Dad says: " + joke, true, (float) Services.PLATFORM.getTTSVolume());
 			}
 
 			MutableComponent finalComponent = Component.literal("<DailyDad> ").withStyle(ChatFormatting.GOLD).append(component);

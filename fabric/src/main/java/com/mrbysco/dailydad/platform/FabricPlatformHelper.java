@@ -34,6 +34,13 @@ public class FabricPlatformHelper implements IPlatformHelper {
 	}
 
 	@Override
+	public double getTTSVolume() {
+		if (DailyDadFabric.config == null)
+			DailyDadFabric.config = AutoConfig.getConfigHolder(JokeConfig.class).getConfig();
+		return DailyDadFabric.config.general.ttsVolume;
+	}
+
+	@Override
 	public void getJokeAsync(JokeResolved resolved) {
 		new Thread(() -> {
 			String theJoke = DadAbase.getDadJoke();

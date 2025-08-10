@@ -23,7 +23,7 @@ public class DadCommands {
 	private static int sendJoke(CommandContext<CommandSourceStack> ctx) {
 		Services.PLATFORM.getJokeAsync((joke, component) -> {
 			if (Services.PLATFORM.getJokeType() == JokeEnum.TTS) {
-				Narrator.getNarrator().say("Daily Dad says: " + joke, true);
+				Narrator.getNarrator().say("Daily Dad says: " + joke, true, (float) Services.PLATFORM.getTTSVolume());
 			}
 
 			MutableComponent finalComponent = Component.literal("<DailyDad> ").withStyle(ChatFormatting.GOLD).append(component);

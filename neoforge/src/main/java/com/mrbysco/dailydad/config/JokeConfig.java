@@ -4,6 +4,7 @@ import com.mrbysco.dailydad.Constants;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.common.ModConfigSpec.BooleanValue;
 import net.neoforged.neoforge.common.ModConfigSpec.ConfigValue;
+import net.neoforged.neoforge.common.ModConfigSpec.DoubleValue;
 import net.neoforged.neoforge.common.ModConfigSpec.EnumValue;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.event.config.ModConfigEvent;
@@ -16,6 +17,7 @@ public class JokeConfig {
 		public final EnumValue<JokeEnum> jokeType;
 		public final ConfigValue<List<? extends String>> internal_dadabase;
 		public final BooleanValue jokeUponRespawn;
+		public final DoubleValue ttsVolume;
 
 		Client(ModConfigSpec.Builder builder) {
 			builder.comment("Client settings")
@@ -66,6 +68,10 @@ public class JokeConfig {
 			jokeUponRespawn = builder
 					.comment("Should a joke be told upon death [default: false]")
 					.define("jokeUponRespawn", false);
+
+			ttsVolume = builder
+					.comment("The volume of the TTS voice [default: 0.75]")
+					.defineInRange("ttsVolume", 0.75, 0.0, 1.0);
 
 			builder.pop();
 		}

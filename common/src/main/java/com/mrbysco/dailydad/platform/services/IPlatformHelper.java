@@ -29,6 +29,13 @@ public interface IPlatformHelper {
 	boolean getJokeUponRespawn();
 
 	/**
+	 * Gets the volume of the TTS voice
+	 *
+	 * @return the ttsVolume config option
+	 */
+	double getTTSVolume();
+
+	/**
 	 * Gets a joke from the online dadabase (Asynchronous)
 	 *
 	 * @param resolved The callback to be called when the joke is resolved

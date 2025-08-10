@@ -50,7 +50,7 @@ public class JokeHandler {
 			if (jokeEnum == JokeEnum.CHAT || jokeEnum == JokeEnum.TTS) {
 				Services.PLATFORM.getJokeAsync((joke, component) -> {
 					if (jokeEnum == JokeEnum.TTS) {
-						Narrator.getNarrator().say("Daily Dad says: " + joke, true);
+						Narrator.getNarrator().say("Daily Dad says: " + joke, true, (float) Services.PLATFORM.getTTSVolume());
 					}
 					player.displayClientMessage(Component.literal("<DailyDad> ").withStyle(ChatFormatting.GOLD).append(component), false);
 				});
@@ -67,7 +67,7 @@ public class JokeHandler {
 				if (jokeEnum != JokeEnum.LOADING) {
 					Services.PLATFORM.getJokeAsync((joke, component) -> {
 						if (jokeEnum == JokeEnum.TTS) {
-							Narrator.getNarrator().say("Daily Dad says: " + joke, true);
+							Narrator.getNarrator().say("Daily Dad says: " + joke, true, (float) Services.PLATFORM.getTTSVolume());
 						}
 						newPlayer.displayClientMessage(Component.literal("<DailyDad> ").withStyle(ChatFormatting.GOLD).append(component), false);
 					});

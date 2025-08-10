@@ -26,6 +26,11 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
 	}
 
 	@Override
+	public double getTTSVolume() {
+		return JokeConfig.CLIENT.ttsVolume.get();
+	}
+
+	@Override
 	public void getJokeAsync(JokeResolved resolved) {
 		new Thread(() -> {
 			String joke = DadAbase.getDadJoke();

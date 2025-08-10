@@ -24,5 +24,8 @@ public class JokeConfig implements ConfigData {
 
 		@Comment("Should a joke be told upon death [default: false]")
 		public boolean jokeUponRespawn = false;
+
+		@Comment("The volume of the TTS voice [default: 0.75]")
+		public double ttsVolume = 0.75D;
 	}
 }
