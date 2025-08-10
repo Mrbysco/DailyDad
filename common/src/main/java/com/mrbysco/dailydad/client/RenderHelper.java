@@ -1,6 +1,5 @@
 package com.mrbysco.dailydad.client;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -9,7 +8,7 @@ import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
-import org.joml.Matrix4f;
+import org.joml.Matrix3x2fStack;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,7 +23,7 @@ public class RenderHelper {
 	}
 
 	private static void renderJokeInternal(GuiGraphics guiGraphics, List<ClientTooltipComponent> tooltipComponents, int x, int y) {
-		final PoseStack stack = guiGraphics.pose();
+		final Matrix3x2fStack stack = guiGraphics.pose();
 		final Minecraft minecraft = Minecraft.getInstance();
 		final Screen screen = minecraft.screen;
 		if (screen == null)
@@ -53,23 +52,21 @@ public class RenderHelper {
 				k2 = screen.height - j - 6;
 			}
 
-			stack.pushPose();
+			stack.pushMatrix();
 
-			Matrix4f matrix4f = stack.last().pose();
 			Minecraft mc = Minecraft.getInstance();
 			MultiBufferSource.BufferSource bufferSource = mc.renderBuffers().bufferSource();
-			stack.translate(0.0D, 0.0D, 400.0D);
 			int l1 = k2;
 
 			for (int i2 = 0; i2 < tooltipComponents.size(); ++i2) {
 				ClientTooltipComponent clientTooltipComponent = tooltipComponents.get(i2);
-				clientTooltipComponent.renderText(font, j2, l1, matrix4f, bufferSource);
+				clientTooltipComponent.renderText(guiGraphics, font, j2, l1);
 
 				l1 += clientTooltipComponent.getHeight(font) + (i2 == 0 ? 2 : 0);
 			}
 
 			bufferSource.endBatch();
-			stack.popPose();
+			stack.popMatrix();
 		}
 	}
 }
