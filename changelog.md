@@ -1,1 +1,1 @@
-* Enable built-in config screen (NeoForge)
+* Initial update to 1.21.4
