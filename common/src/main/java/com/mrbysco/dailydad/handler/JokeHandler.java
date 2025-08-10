@@ -52,7 +52,7 @@ public class JokeHandler {
 					if (jokeEnum == JokeEnum.TTS) {
 						Narrator.getNarrator().say("Daily Dad says: " + joke, true);
 					}
-					player.sendSystemMessage(Component.literal("<DailyDad> ").withStyle(ChatFormatting.GOLD).append(component));
+					player.displayClientMessage(Component.literal("<DailyDad> ").withStyle(ChatFormatting.GOLD).append(component), false);
 				});
 			}
 			//Reset
@@ -69,7 +69,7 @@ public class JokeHandler {
 						if (jokeEnum == JokeEnum.TTS) {
 							Narrator.getNarrator().say("Daily Dad says: " + joke, true);
 						}
-						newPlayer.sendSystemMessage(Component.literal("<DailyDad> ").withStyle(ChatFormatting.GOLD).append(component));
+						newPlayer.displayClientMessage(Component.literal("<DailyDad> ").withStyle(ChatFormatting.GOLD).append(component), false);
 					});
 				}
 				//Reset

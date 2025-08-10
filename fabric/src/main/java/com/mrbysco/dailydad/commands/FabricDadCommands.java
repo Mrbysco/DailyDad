@@ -30,7 +30,7 @@ public class FabricDadCommands {
 
 			MutableComponent finalComponent = Component.literal("<DailyDad> ").withStyle(ChatFormatting.GOLD).append(component);
 			if (ctx.getSource().getEntity() instanceof Player player) {
-				player.sendSystemMessage(finalComponent);
+				player.displayClientMessage(finalComponent, false);
 			}
 		});
 		return 0;

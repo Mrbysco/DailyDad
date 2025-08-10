@@ -40,7 +40,7 @@ public class RenderHelper {
 					i = k;
 				}
 
-				j += clienttooltipcomponent.getHeight();
+				j += clienttooltipcomponent.getHeight(font);
 			}
 
 			int j2 = x;
@@ -65,7 +65,7 @@ public class RenderHelper {
 				ClientTooltipComponent clientTooltipComponent = tooltipComponents.get(i2);
 				clientTooltipComponent.renderText(font, j2, l1, matrix4f, bufferSource);
 
-				l1 += clientTooltipComponent.getHeight() + (i2 == 0 ? 2 : 0);
+				l1 += clientTooltipComponent.getHeight(font) + (i2 == 0 ? 2 : 0);
 			}
 
 			bufferSource.endBatch();
