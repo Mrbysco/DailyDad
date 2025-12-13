@@ -12,9 +12,6 @@ base {
     archivesName = "${mod_name}-neoforge-${minecraft_version}"
 }
 
-configurations {
-    testmodImplementation.extendsFrom implementation
-}
 neoForge {
     version = "${neo_version}"
 
@@ -28,7 +25,6 @@ neoForge {
     if (at.exists()) {
         accessTransformers.add(at.absolutePath)
     }
-    addModdingDependenciesTo(sourceSets["test"])
 
     runs {
         configureEach { model ->
