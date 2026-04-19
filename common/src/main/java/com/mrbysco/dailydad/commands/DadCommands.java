@@ -4,6 +4,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.text2speech.Narrator;
+import com.mrbysco.dailydad.config.JokeConfig;
 import com.mrbysco.dailydad.config.JokeEnum;
 import com.mrbysco.dailydad.platform.Services;
 import net.minecraft.ChatFormatting;
@@ -22,13 +23,13 @@ public class DadCommands {
 
 	private static int sendJoke(CommandContext<CommandSourceStack> ctx) {
 		Services.PLATFORM.getJokeAsync((joke, component) -> {
-			if (Services.PLATFORM.getJokeType() == JokeEnum.TTS) {
-				Narrator.getNarrator().say("Daily Dad says: " + joke, true, (float) Services.PLATFORM.getTTSVolume());
+			if (JokeConfig.CLIENT.jokeType.get() == JokeEnum.TTS) {
+				Narrator.getNarrator().say("Daily Dad says: " + joke, true, JokeConfig.CLIENT.ttsVolume.get().floatValue());
 			}
 
 			MutableComponent finalComponent = Component.literal("<DailyDad> ").withStyle(ChatFormatting.GOLD).append(component);
 			if (ctx.getSource().getEntity() instanceof Player player) {
-				player.displayClientMessage(finalComponent, false);
+				player.sendSystemMessage(finalComponent);
 			}
 		});
 		return 0;

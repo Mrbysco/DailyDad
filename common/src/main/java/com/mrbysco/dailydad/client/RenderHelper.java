@@ -2,7 +2,7 @@ package com.mrbysco.dailydad.client;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -14,15 +14,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class RenderHelper {
-	public static void renderJoke(GuiGraphics guiGraphics, Component joke, int x, int y) {
+	public static void renderJoke(GuiGraphicsExtractor guiGraphics, Component joke, int x, int y) {
 		renderJoke(guiGraphics, List.of(joke.getVisualOrderText()), x, y);
 	}
 
-	private static void renderJoke(GuiGraphics guiGraphics, List<? extends FormattedCharSequence> formattedCharSequences, int x, int y) {
+	private static void renderJoke(GuiGraphicsExtractor guiGraphics, List<? extends FormattedCharSequence> formattedCharSequences, int x, int y) {
 		renderJokeInternal(guiGraphics, formattedCharSequences.stream().map(ClientTooltipComponent::create).collect(Collectors.toList()), x, y);
 	}
 
-	private static void renderJokeInternal(GuiGraphics guiGraphics, List<ClientTooltipComponent> tooltipComponents, int x, int y) {
+	private static void renderJokeInternal(GuiGraphicsExtractor guiGraphics, List<ClientTooltipComponent> tooltipComponents, int x, int y) {
 		final Matrix3x2fStack stack = guiGraphics.pose();
 		final Minecraft minecraft = Minecraft.getInstance();
 		final Screen screen = minecraft.screen;
@@ -60,7 +60,7 @@ public class RenderHelper {
 
 			for (int i2 = 0; i2 < tooltipComponents.size(); ++i2) {
 				ClientTooltipComponent clientTooltipComponent = tooltipComponents.get(i2);
-				clientTooltipComponent.renderText(guiGraphics, font, j2, l1);
+				clientTooltipComponent.extractText(guiGraphics, font, j2, l1);
 
 				l1 += clientTooltipComponent.getHeight(font) + (i2 == 0 ? 2 : 0);
 			}
