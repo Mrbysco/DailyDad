@@ -5,7 +5,6 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
 import org.joml.Matrix3x2fStack;
@@ -25,7 +24,7 @@ public class RenderHelper {
 	private static void renderJokeInternal(GuiGraphicsExtractor guiGraphics, List<ClientTooltipComponent> tooltipComponents, int x, int y) {
 		final Matrix3x2fStack stack = guiGraphics.pose();
 		final Minecraft minecraft = Minecraft.getInstance();
-		final Screen screen = minecraft.screen;
+		final Screen screen = minecraft.gui.screen();
 		if (screen == null)
 			return;
 		final Font font = minecraft.font;
@@ -54,8 +53,6 @@ public class RenderHelper {
 
 			stack.pushMatrix();
 
-			Minecraft mc = Minecraft.getInstance();
-			MultiBufferSource.BufferSource bufferSource = mc.renderBuffers().bufferSource();
 			int l1 = k2;
 
 			for (int i2 = 0; i2 < tooltipComponents.size(); ++i2) {
@@ -65,7 +62,6 @@ public class RenderHelper {
 				l1 += clientTooltipComponent.getHeight(font) + (i2 == 0 ? 2 : 0);
 			}
 
-			bufferSource.endBatch();
 			stack.popMatrix();
 		}
 	}

@@ -17,6 +17,6 @@ Sometimes he laughs at them
 [[dependencies.dailydad]]
 modId="minecraft"
 type="required"
-versionRange="[26.1.1,)"
+versionRange="[26.2.0,)"
 ordering="NONE"
 side="BOTH"
