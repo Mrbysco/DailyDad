@@ -24,7 +24,7 @@ jobs:
         with:
           name: build-output
           path: |
-            ./forge/build/libs/*.jar
+            ./neoforge/build/libs/*.jar
             ./fabric/build/libs/*.jar
 
   publish-maven:
